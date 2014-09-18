@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => Words And Pictures
+            [TabletLink] => navto://050_WordsAndPictures
+            [TotalSold] => 744
+            [StartDate] => 2014-03-08T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 699
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [2] => Array
+        (
+            [Name] => The Rugby Player
+            [TabletLink] => navto://050_RugbyPlayerThe
+            [TotalSold] => 605
+            [StartDate] => 2014-03-06T18:45:00
+            [VenueName] => Camera 12 - Screen 10
+        )
+
+    [3] => Array
+        (
+            [Name] => East Side Sushi
+            [TabletLink] => navto://050_EastSideSushi
+            [TotalSold] => 497
+            [StartDate] => 2014-03-08T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [4] => Array
+        (
+            [Name] => Friended To Death
+            [TabletLink] => navto://050_FriendedToDeath
+            [TotalSold] => 384
+            [StartDate] => 2014-03-07T19:15:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+)
+</pre>

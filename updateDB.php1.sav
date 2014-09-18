@@ -1,0 +1,795 @@
+<?php 
+	
+	// --------------------------------------------------------------------- //
+	//  This script has following functionalities:
+	//  1. If the tables are empty, populate the database with data by 
+	//     inserting rows in Event and Showing tables.
+	//  2. If the tables are filled, update the data based on the information
+	//     in the XML. Here, XML refers to "http://payments.cinequest.org/
+	//     websales/feed.ashx?guid=70d8e056-fa45-4221-9cc7-b6dc88f62c98&
+	//     showslist=true&".
+	//  3. The ticketing information for each SHOWING is obtained by making 
+	//     an Agile API call using "https://prod5.agileticketing.net/API/
+	//     Admin.svc/XML/EventGetSalesSummary?
+	//     appkey=d09b3053-1817-4665-b41f-e1987e14433a&
+	//     userkey=0fd55f05-bf17-4b48-bbff-12cd842830de&
+	//     corporgid=2198&eventOrgID=2229&eventID=<ShowingID>"
+	//  4. Set the TrendingStatus of an EVENT based on if there is atleast 
+	//     one SHOWING under that EVENT which has a screening of future date.
+	//  5. Set the RushStatus of a SHOWING to be false or true based on 
+	//     if there are any tickets available or not, respectively.
+	// --------------------------------------------------------------------- //
+	
+	// Start connection with database
+	require("connectToDB.php");
+		
+	// Load XML, in PHP variables
+	$xml=simplexml_load_file("http://payments.cinequest.org/websales/feed.ashx?guid=70d8e056-fa45-4221-9cc7-b6dc88f62c98&showslist=true&");
+	
+	// Get the current date and time
+	date_default_timezone_set('America/Los_Angeles');
+	//$currDateTime = dateTimeToArray(date('Y-m-d H:i:s'), 0);	
+	$currDateTime = dateTimeToArray('2013-03-06 12:53:00', 0);	
+	
+	foreach ($xml->ArrayOfShows->Show as $events):
+		
+		// Save the SELECTED attributes for each SHOW, in PHP variables
+		$EventID = $events->ID;
+		$Name = addslashes($events->Name);
+		$Duration = $events->Duration;
+		$ThumbImage = $events->ThumbImage;
+		$EventImage = $events->EventImage;
+		$InfoLink = $events->InfoLink;
+		$TabletLink = " ";
+		$BitlyLink = " ";
+		$TotalSold = 0;
+		$TrendingStatus = 0;
+		
+		// If SHOWINGS are there for the current EVENT,
+		// save the SELECTED attributes of SHOWINGS for each EVENT
+		$Showing = 0;
+		foreach ($events->CurrentShowings->Showing as $ShowingProps):
+			
+			// This variable determines if there exists any SHOWING for the current EVENT 
+			$Showing = 1;
+			$ShowingID = $ShowingProps->ID;
+			$ShowingStartDate = $ShowingProps->StartDate;
+			$ShowingEndDate = $ShowingProps->EndDate;
+			$ShowingDuration = $ShowingProps->Duration;
+			$ShowingSalesMessage = $ShowingProps->SalesMessage;
+			$ShowingLegacyPurchaseLink = $ShowingProps->LegacyPurchaseLink;
+			$ShowingVenueID = $ShowingProps->Venue->VenueID;
+			$ShowingVenueName = $ShowingProps->Venue->VenueName;
+			
+			// Call the Agile ticketing API for each ShowingID
+			$xml_ticketing = simplexml_load_file("https://prod5.agileticketing.net/API/Admin.svc/XML/EventGetSalesSummary?appkey=d09b3053-1817-4665-b41f-e1987e14433a&userkey=0fd55f05-bf17-4b48-bbff-12cd842830de&corporgid=2198&eventOrgID=2229&eventID=".$ShowingID);
+			
+			// Save the ticketing details for each SHOWING, in PHP variables
+			$Available = $xml_ticketing->Available;
+			$Disabled = $xml_ticketing->Disabled;
+			$Sold = $xml_ticketing->Sold;
+			$InProcess = $xml_ticketing->InProcess;
+			
+			// Set RushStatus of SHOWING
+			if ($Available == 0) {
+				$RushStatus = 1;
+			} else {
+				$RushStatus = 0;
+			}
+			
+			// Set TrendingStatus of EVENT
+			$showingDateTime = dateTimeToArray($ShowingStartDate, 1);
+			if (isLess($currDateTime, $showingDateTime) == -1) {
+				$TrendingStatus = 1;
+			} else {
+				$TrendingStatus = 0;
+			}
+			
+			//
+			$TotalSold = $TotalSold + $Sold;
+			
+			// Query to check if there exists any data in the Showing table to 
+			// determine if the data saved from XML needs to be inserted or updated
+			$query = "SELECT * FROM trending_Showing WHERE ShowingID=".$ShowingID;
+			$result = mysql_query($query,$con);	
+			$row = mysql_fetch_assoc($result);
+			$ShowingUpdate = 0;
+			
+			// update Showing table 
+			if ($row['ShowingID'] == $ShowingID) {
+				$ShowingUpdate = 1;
+				$query = "UPDATE trending_Showing set ShowingStartDate='".$ShowingStartDate."', 
+											ShowingEndDate='".$ShowingEndDate."', 
+											ShowingDuration='".$ShowingDuration."', 
+											ShowingSalesMessage='".$ShowingSalesMessage."', 
+											ShowingLegacyPurchaseLink='".$ShowingLegacyPurchaseLink."', 
+											ShowingVenueID=".$ShowingVenueID.",
+											ShowingVenueName='".$ShowingVenueName."',
+											Available=".$Available.",
+											Disabled=".$Disabled.",
+											Sold=".$Sold.",
+											InProcess=".$InProcess.",
+											RushStatus=".$RushStatus."
+						WHERE ShowingID=".$ShowingID;
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			} 
+			
+			// if ShowingUpdate is false, insert data in the Showing table instead of updating
+			if ($ShowingUpdate == 0) {
+				$query = "INSERT INTO `trending_Showing`(`ShowingID`, `EventID`, `ShowingStartDate`, `ShowingEndDate`, `ShowingDuration`, `ShowingSalesMessage`,
+												`ShowingLegacyPurchaseLink`, `ShowingVenueID`, `ShowingVenueName`, `Available`, `Disabled`, `Sold`, `InProcess`, `RushStatus`) 
+						VALUES (".$ShowingID.",".$EventID.",'".$ShowingStartDate."','".$ShowingEndDate."',".$ShowingDuration.",'".$ShowingSalesMessage."',
+								'".$ShowingLegacyPurchaseLink."',".$ShowingVenueID.",'".$ShowingVenueName."',".$Available.",".$Disabled.",".$Sold.",".$InProcess.",".$RushStatus.")";
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			}
+		endforeach;	
+			
+		// Update or Insert data in Event table if there exists any SHOWING for the corresponding EVENT
+		if ($Showing == 1) {
+			
+			// Query to check if there exists any data in the Event table to 
+			// determine if the data saved from XML needs to be inserted or updated
+			$query = "SELECT * FROM trending_Event WHERE EventID=".$EventID;
+			$result = mysql_query($query,$con);	
+			$row = mysql_fetch_assoc($result);
+			$EventUpdate = 0;
+			
+			// update Event table 
+			if ($row['EventID'] == $EventID) {
+				$EventUpdate = 1;
+				$query = "UPDATE trending_Event set Name='".$Name."', Duration='".$Duration."', ThumbImage='".$ThumbImage."', EventImage='".$EventImage."', InfoLink='".$InfoLink."', TabletLink='".$TabletLink."', BitlyLink='".$BitlyLink."', TotalSold='".$TotalSold."', TrendingStatus=".$TrendingStatus." WHERE EventID=".$EventID;
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			} 
+			
+			// if EventUpdate is false, insert data in the Event table instead of updating
+			if ($EventUpdate == 0) {			
+				$query = "INSERT INTO `trending_Event`(`EventID`, `Name`, `Duration`, `ThumbImage`, `EventImage`, `InfoLink`, `TabletLink`, `BitlyLink`, `TotalSold`, `TrendingStatus`) 
+						VALUES (".$EventID.",'".$Name."',".$Duration.",'".$ThumbImage."','".$EventImage."','".$InfoLink."','".$TabletLink."','".$BitlyLink."','".$TotalSold."','".$TrendingStatus."')";
+
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			}
+
+		}
+		
+	endforeach;
+	
+	// --------------------------------------------------------------------- //
+	//  Adding TabletLink and BitlyLink to trending_Event table
+	// --------------------------------------------------------------------- //
+	
+	$query = "UPDATE trending_Event set TabletLink='navto://016_OpeningNight', BitlyLink='http://bit.ly/HsD2wQ' WHERE Name='Ginger & Rosa'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://017_ClosingNight', BitlyLink='http://bit.ly/HsEnDL' WHERE Name='Midnight\'s Children'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+	
+	$query = "UPDATE trending_Event set TabletLink='navto://030_7LivesOfChance', BitlyLink='http://bit.ly/16MWNF4' WHERE Name='7 Lives of Chance'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+	
+	$query = "UPDATE trending_Event set TabletLink='navto://030_AboutHim', BitlyLink='http://bit.ly/16MWQ3I' WHERE Name='About Him'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Aftermath', BitlyLink='http://bit.ly/16MWSsB' WHERE Name='Aftermath'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_AgnusDei', BitlyLink='http://bit.ly/16MWR7Z' WHERE Name='Agnus Dei'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_AlmostManThe', BitlyLink='http://bit.ly/16MWU3F' WHERE Name='The Almost Man'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_BalkanMelodie', BitlyLink='http://bit.ly/16MX5fe' WHERE Name='Balkan Melodie'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Believers', BitlyLink='http://bit.ly/16MX7Uu' WHERE Name='The Believers'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Chaos', BitlyLink='http://bit.ly/16MX6Qg' WHERE Name='Chaos'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Chapman', BitlyLink='http://bit.ly/16MXgY1' WHERE Name='Chapman'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Chittagong', BitlyLink='http://bit.ly/16MXi1X' WHERE Name='Chittagong'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_CitizenThe', BitlyLink='http://bit.ly/16MXkH5' WHERE Name='The Citizen'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_CityBaby', BitlyLink='http://bit.ly/HsCIyg' WHERE Name='City Baby'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ComeOnEddy', BitlyLink='http://bit.ly/HsCKG9' WHERE Name='Come On, Eddy!'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Congratulations', BitlyLink='http://bit.ly/HsCJlG' WHERE Name='Congratulations!'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Cubamerican', BitlyLink='http://bit.ly/HsCKWW' WHERE Name='Cubamerican'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_DeadManAndBeing', BitlyLink='http://bit.ly/HsCMxO' WHERE Name='The Dead Man And Being Happy'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_DeepThe', BitlyLink='http://bit.ly/HsCMOp' WHERE Name='The Deep'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Detonator', BitlyLink='http://bit.ly/HsCNBQ' WHERE Name='Detonator'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_DoseOfReality', BitlyLink='http://bit.ly/HsCPtA' WHERE Name='Dose Of Reality'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Dreamer', BitlyLink='http://bit.ly/HsCXcv' WHERE Name='Dreamer'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Eden', BitlyLink='http://bit.ly/HsCXtc' WHERE Name='Eden'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Emperor', BitlyLink='http://bit.ly/HsCXJG' WHERE Name='Emperor'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_EverybodyInOur', BitlyLink='http://bit.ly/HsCY08' WHERE Name='Everybody In Our Family'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ExamThe', BitlyLink='http://bit.ly/HsD08h' WHERE Name='The Exam'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_FamilyMeals', BitlyLink='http://bit.ly/HsCYNM' WHERE Name='Family Meals'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_FarOutIsntFar', BitlyLink='http://bit.ly/HsCZ4d' WHERE Name='Far Out Isn\'t Far Enough'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_FeedMeWithYour', BitlyLink='http://bit.ly/HsCZkL' WHERE Name='Feed Me With Your Words'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_GirlShapedLoveDrug', BitlyLink='http://bit.ly/HsDgnF' WHERE Name='Girl Shaped Love Drug'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_GoldfishGoHome', BitlyLink='http://bit.ly/HsDgEm' WHERE Name='Goldfish Go Home'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Havanastation', BitlyLink='http://bit.ly/HsDhrO' WHERE Name='Havanastation'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_HunkyDory', BitlyLink='http://bit.ly/HsDhYH' WHERE Name='Hunky Dory'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_HuntThe', BitlyLink='http://bit.ly/HsDkno' WHERE Name='The Hunt'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_IAmADirector', BitlyLink='http://bit.ly/HsDifr' WHERE Name='I Am A Director'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_InaccurateMemoir', BitlyLink='http://bit.ly/HsE1NC' WHERE Name='An Inaccurate Memoir'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_InTheShadow', BitlyLink='http://bit.ly/HsDlb8' WHERE Name='In The Shadow'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_KitchenThe', BitlyLink='http://bit.ly/HsE4Jj' WHERE Name='The Kitchen'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_LaCamioneta', BitlyLink='http://bit.ly/HsE4ZU' WHERE Name='La Camioneta'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_LeadUsNotInto', BitlyLink='http://bit.ly/HsE3Fd' WHERE Name='Lead Us Not Into Temptation'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_LeaveOfAbsence', BitlyLink='http://bit.ly/HsE6AQ' WHERE Name='Leave Of Absence'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_LonelyBoy', BitlyLink='http://bit.ly/HsE9N3' WHERE Name='Lonely Boy'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_LovelessZoritsa', BitlyLink='http://bit.ly/HsE8bQ' WHERE Name='Loveless Zoritsa'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_MadeInChina', BitlyLink='http://bit.ly/HsE8c2' WHERE Name='Made In China'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_MollyMaxwell', BitlyLink='http://bit.ly/HsEnUu' WHERE Name='Molly Maxwell'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_MonAmi', BitlyLink='http://bit.ly/HsEob2' WHERE Name='Mon Ami'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_MumbaisKing', BitlyLink='http://bit.ly/HsErmY' WHERE Name='Mumbai\'s King'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_MustHaveBeenLove', BitlyLink='http://bit.ly/HsEpvy' WHERE Name='Must Have Been Love'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Mystery', BitlyLink='http://bit.ly/HsEsHE' WHERE Name='Mystery'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_MyUniverseInLowercase', BitlyLink='http://bit.ly/HsEsra' WHERE Name='My Universe In Lowercase'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Offline', BitlyLink='http://bit.ly/HsEsYc' WHERE Name='Offline'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OhBoy', BitlyLink='http://bit.ly/HsEteN' WHERE Name='Oh Boy'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OldStock', BitlyLink='http://bit.ly/HsECyN' WHERE Name='Old Stock'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OneDayOrAnother', BitlyLink='http://bit.ly/HsEG1D' WHERE Name='One Day Or Another'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OneSmallHitch', BitlyLink='http://bit.ly/HsEGyx' WHERE Name='One Small Hitch'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OnlyDaughter', BitlyLink='http://bit.ly/HsEIq2' WHERE Name='Only Daughter'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OnlyRealGame', BitlyLink='http://bit.ly/HsEH5A' WHERE Name='The Only Real Game'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_OrheimCompany', BitlyLink='http://bit.ly/HsEHlY' WHERE Name='The Orheim Company'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Panihida', BitlyLink='http://bit.ly/HsEHme' WHERE Name='Panihida'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_PlaybackSinger', BitlyLink='http://bit.ly/HsEJKG' WHERE Name='The Playback Singer'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Plimpton', BitlyLink='http://bit.ly/HsEVtq' WHERE Name='Plimpton! Starring George Plimpton As Himself'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_PolishFilm', BitlyLink='http://bit.ly/HsF1Bq' WHERE Name='The Polish Film'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_PrettyTimeBomb', BitlyLink='http://bit.ly/HsF4x5' WHERE Name='The Pretty Time Bomb'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_RacketBoysThe', BitlyLink='http://bit.ly/HsF3ci' WHERE Name='The Racket Boys'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_RouteOfTheMoon', BitlyLink='http://bit.ly/HsF5RI' WHERE Name='Route Of The Moon'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_RunningWild', BitlyLink='http://bit.ly/HsF6Vv' WHERE Name='Running Wild: The Life Of Dayton O. Hyde'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_SapphiresThe', BitlyLink='http://bit.ly/HsFbsj' WHERE Name='The Sapphires'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ScarThe', BitlyLink='http://bit.ly/HsFbIX' WHERE Name='The Scar'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram01', BitlyLink='http://bit.ly/HsFcfR' WHERE Name='Shorts Program 1: The Battles We Fought'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram02', BitlyLink='http://bit.ly/HsFeUY' WHERE Name='Shorts Program 2: Looking For Something New'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram03', BitlyLink='http://bit.ly/HsFfbB' WHERE Name='Shorts Program 3: Choice and Effect'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram04', BitlyLink='http://bit.ly/HsFdAs' WHERE Name='Shorts Program 4: Animated Worlds'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram05', BitlyLink='http://bit.ly/HsFgMA' WHERE Name='Shorts Program 5: Mindbenders'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram06', BitlyLink='http://bit.ly/HsFjIx' WHERE Name='Shorts Program 6: Docu-Nation'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram07', BitlyLink='http://bit.ly/HsFkfl' WHERE Name='Shorts Program 7: Time, Space, And In-Between'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_ShortsProgram08', BitlyLink='http://bit.ly/HsFsvw' WHERE Name='Shorts Program 8: Student Shorts'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Solace', BitlyLink='http://bit.ly/HsFxiT' WHERE Name='Solace'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_SomewhereSlow', BitlyLink='http://bit.ly/HsFy6c' WHERE Name='Somewhere Slow'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_SpaceJockeyPursuit', BitlyLink='http://bit.ly/HsFyTN' WHERE Name='The Space Jockey Pursuit'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Sparks', BitlyLink='http://bit.ly/HsFBPD' WHERE Name='Sparks'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_StableLife', BitlyLink='http://bit.ly/HsFFi9' WHERE Name='Stable Life'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_Still', BitlyLink='http://bit.ly/HsFFyJ' WHERE Name='Still'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_SweetTalk', BitlyLink='http://bit.ly/HsFFPc' WHERE Name='Sweet Talk'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_TangoAbrazos', BitlyLink='http://bit.ly/HsFMdv' WHERE Name='Tango Abrazos'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_TwentyMillionPeople', BitlyLink='http://bit.ly/HsFNhE' WHERE Name='Twenty Million People'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_WamplersAscent', BitlyLink='http://bit.ly/HsFO5d' WHERE Name='Wampler\'s Ascent'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_WelcomeHome', BitlyLink='http://bit.ly/HsFP9b' WHERE Name='Welcome Home'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_WeWentToWar', BitlyLink='http://bit.ly/HsFRxZ' WHERE Name='We Went To War'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_WeWereChildren', BitlyLink='http://bit.ly/HsFROt' WHERE Name='We Were Children'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_WhiteLie', BitlyLink='http://bit.ly/HsFPpQ' WHERE Name='White Lie'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+
+	$query = "UPDATE trending_Event set TabletLink='navto://030_YearOfTheLiving', BitlyLink='http://bit.ly/HsFUty' WHERE Name='Year Of The Living Dead'";
+	$result = mysql_query($query,$con);	
+	if(!$result) {
+		die("Invalid query! <br> The query is: " . $query);
+	}
+	
+	// --------------------------------------------------------------------- //
+	//  Function definition for separating date/time values
+	// --------------------------------------------------------------------- //
+	function dateTimeToArray($inputDateTime, $isEvent) {
+		$dateTime = array();
+		if ($isEvent == 1) {
+			$dateTime = explode("T", $inputDateTime);
+		} else {
+			$dateTime = explode(" ", $inputDateTime);
+		}
+		
+		$date = explode("-", $dateTime[0]);
+		$time = explode(":", $dateTime[1]);
+		$dateTime = array ($date[0], $date[1], $date[2], $time[0], $time[1], $time[2]);
+		
+		return $dateTime;
+	}
+	
+	// --------------------------------------------------------------------- //
+	//  Function definition for separating date/time values
+	//  It returns -1, 1 or 0 based on whether the currDateTime falls 
+	//  before, after or is same as the showingDateTime.
+	// --------------------------------------------------------------------- //
+	function isLess($currDateTime, $showingDateTime) {
+		// compare year
+		if ($currDateTime[0] < $showingDateTime[0]) {
+			return -1;
+		}
+		if ($currDateTime[0] > $showingDateTime[0]) {
+			return 1;
+		}
+		
+		// compare month
+		if ($currDateTime[1] < $showingDateTime[1]) {
+			return -1;
+		}
+		if ($currDateTime[1] > $showingDateTime[1]) {
+			return 1;
+		}
+		
+		// compare day
+		if ($currDateTime[2] < $showingDateTime[2]) {
+			return -1;
+		}
+		if ($currDateTime[2] > $showingDateTime[2]) {
+			return 1;
+		}
+		
+		// compare hour
+		if ($currDateTime[3] < $showingDateTime[3]) {
+			return -1;
+		}
+		if ($currDateTime[3] > $showingDateTime[3]) {
+			return 1;
+		}
+		
+		// compare minutes
+		if ($currDateTime[4] < $showingDateTime[4]) {
+			return -1;
+		}
+		if ($currDateTime[4] > $showingDateTime[4]) {
+			return 1;
+		}
+		
+		// compare seconds
+		if ($currDateTime[5] < $showingDateTime[5]) {
+			return -1;
+		}
+		if ($currDateTime[5] > $showingDateTime[5]) {
+			return 1;
+		}
+		return 0;
+	}
+?>

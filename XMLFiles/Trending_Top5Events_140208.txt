@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => An Afternoon with Neil Gaiman: M
+            [TabletLink] => navto://016_MaverickGaiman
+            [TotalSold] => 123
+            [StartDate] => 2014-03-09T13:30:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 92
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [2] => Array
+        (
+            [Name] => Teenage
+            [TabletLink] => navto://050_Teenage
+            [TotalSold] => 69
+            [StartDate] => 2014-03-09T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => Return To Zero
+            [TabletLink] => navto://050_ReturnToZero
+            [TotalSold] => 65
+            [StartDate] => 2014-03-08T16:30:00
+            [VenueName] => California Theatre
+        )
+
+    [4] => Array
+        (
+            [Name] => Noble Fir
+            [TabletLink] => navto://050_NobleFir
+            [TotalSold] => 39
+            [StartDate] => 2014-03-08T16:15:00
+            [VenueName] => Camera 12 - Screen 8
+        )
+
+)
+</pre>

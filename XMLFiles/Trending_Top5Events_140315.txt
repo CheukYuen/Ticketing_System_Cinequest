@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => East Side Sushi
+            [TabletLink] => navto://050_EastSideSushi
+            [TotalSold] => 910
+            [StartDate] => 2014-03-08T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => The Rugby Player
+            [TabletLink] => navto://050_RugbyPlayerThe
+            [TotalSold] => 881
+            [StartDate] => 2014-03-06T18:45:00
+            [VenueName] => Camera 12 - Screen 10
+        )
+
+    [2] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 850
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => Words And Pictures
+            [TabletLink] => navto://050_WordsAndPictures
+            [TotalSold] => 744
+            [StartDate] => 2014-03-08T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [4] => Array
+        (
+            [Name] => Hunting Elephants
+            [TabletLink] => navto://050_HuntingElephants
+            [TotalSold] => 681
+            [StartDate] => 2014-03-05T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+)
+</pre>

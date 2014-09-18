@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 670
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => The Rugby Player
+            [TabletLink] => navto://050_RugbyPlayerThe
+            [TotalSold] => 399
+            [StartDate] => 2014-03-06T18:45:00
+            [VenueName] => Camera 12 - Screen 10
+        )
+
+    [2] => Array
+        (
+            [Name] => Friended To Death
+            [TabletLink] => navto://050_FriendedToDeath
+            [TotalSold] => 383
+            [StartDate] => 2014-03-07T19:15:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => Hunting Elephants
+            [TabletLink] => navto://050_HuntingElephants
+            [TotalSold] => 337
+            [StartDate] => 2014-03-05T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [4] => Array
+        (
+            [Name] => Just A Sigh
+            [TabletLink] => navto://050_JustASigh
+            [TotalSold] => 320
+            [StartDate] => 2014-03-06T19:00:00
+            [VenueName] => California Theatre
+        )
+
+)
+</pre>

@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => East Side Sushi
+            [TabletLink] => navto://050_EastSideSushi
+            [TotalSold] => 1161
+            [StartDate] => 2014-03-08T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => Small Time (Closing Night Event)
+            [TabletLink] => navto://022_ClosingNight
+            [TotalSold] => 1005
+            [StartDate] => 2014-03-16T18:00:00
+            [VenueName] => California Theatre
+        )
+
+    [2] => Array
+        (
+            [Name] => Hunting Elephants
+            [TabletLink] => navto://050_HuntingElephants
+            [TotalSold] => 985
+            [StartDate] => 2014-03-05T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => The Rugby Player
+            [TabletLink] => navto://050_RugbyPlayerThe
+            [TotalSold] => 942
+            [StartDate] => 2014-03-06T18:45:00
+            [VenueName] => Camera 12 - Screen 10
+        )
+
+    [4] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 850
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+)
+</pre>

@@ -1,0 +1,139 @@
+#main {
+	width: 265px;
+	height: 369px;
+	background:rgba(80,80,80,0.5);
+
+	font-family: 'Montserrat', sans-serif;
+	color: #FFFFFF;
+	position: relative;
+	z-index: 5;
+}
+
+div {
+	padding: 0;
+	margin: 0;
+}
+
+.headingWrapper>div {
+	display: inline;
+	float: left;
+}
+
+.headingWrapper {
+	width: 265px;
+	height: 30px;
+}
+
+.headingFiller1 {
+	width: 3px;
+	height: 30px;
+}
+
+.headingFiller2 {
+	width: 2px;
+	height: 30px;
+}
+
+.heading {
+	border-bottom: 1px solid #FFFFFF;
+	width: 260px;
+	height: 30px;
+	font-style: italic;
+	line-height: 30px;
+	vertical-align: center;
+	text-align: center;
+	font-size: 13px;
+	color: #000000;
+}
+
+/*-------------------------*/
+
+.contentWrapper>div {
+	display: inline;
+	float: left;
+}
+
+.contentWrapper {
+	width: 265px;
+	height: 28px;
+}
+
+.contentFiller1 {
+	width: 3px;
+	height: 28px;
+}
+
+.contentFiller2 {
+	width: 2px;
+	height: 28px;
+}
+
+.content>div {
+	display: inline;
+	float: left;
+}
+.content {
+	width: 260px;
+	height: 28px;
+	border-bottom: 1px solid #FFFFFF;
+}
+
+.leftColumn {
+	width: 110px;
+	height: 28px;
+	font-size: 13px;
+	line-height: 28px;
+	vertical-align: center;
+	text-align: left;
+}
+
+.leftColumn a {
+	text-decoration: none;
+	color: #FFFFFF; 
+}
+.rightColumn {
+	width: 150px;
+	height: 28px;
+	font-size: 10px;
+	text-align: right;
+}
+
+.venue, .dateTime {
+	width: 150px;
+	height: 14px;
+	line-height: 14px;
+	vertical-align: center;
+}
+
+.dateTime {
+	color: #000000;
+}
+
+/*---------- Last Row ----------*/
+
+#lastRowWrapper>div {
+	display: inline;
+	float: left;
+}
+
+#lastRowWrapper {
+	width: 265px;
+	height: 18px;
+}
+
+#lastRowFiller1 {
+	width: 3px;
+	height: 18px;
+}
+
+#lastRowFiller2 {
+	width: 2px;
+	height: 18px;
+}
+
+#lastRow {
+	width: 260px;
+	height: 18px;
+	
+	line-height: 18px;
+}

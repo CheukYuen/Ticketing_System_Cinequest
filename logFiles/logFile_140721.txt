@@ -1,0 +1,5 @@
+
+
+Warning: mysql_fetch_assoc(): supplied argument is not a valid MySQL result resource in /home/cquest/cgi-bin/Trending_11.15.2013/generateLogFile.php on line 29
+
+Warning: mysql_fetch_assoc(): supplied argument is not a valid MySQL result resource in /home/cquest/cgi-bin/Trending_11.15.2013/generateLogFile.php on line 55

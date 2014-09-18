@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => The Grand Seduction (Opening Nig
+            [TabletLink] => navto://021_OpeningNight
+            [TotalSold] => 935
+            [StartDate] => 2014-03-04T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => The Farmer And The Chef
+            [TabletLink] => navto://050_FarmerAndTheChefThe
+            [TotalSold] => 412
+            [StartDate] => 2014-03-09T19:30:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [2] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 357
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => Hunting Elephants
+            [TabletLink] => navto://050_HuntingElephants
+            [TotalSold] => 302
+            [StartDate] => 2014-03-05T19:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [4] => Array
+        (
+            [Name] => Ida
+            [TabletLink] => navto://050_Ida
+            [TotalSold] => 208
+            [StartDate] => 2014-03-05T19:15:00
+            [VenueName] => Camera 12 - Screen 9
+        )
+
+)
+</pre>

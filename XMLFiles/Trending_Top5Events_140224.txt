@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => The Grand Seduction (Opening Nig
+            [TabletLink] => navto://021_OpeningNight
+            [TotalSold] => 166
+            [StartDate] => 2014-03-04T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 162
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [2] => Array
+        (
+            [Name] => The Farmer And The Chef
+            [TabletLink] => navto://050_FarmerAndTheChefThe
+            [TotalSold] => 158
+            [StartDate] => 2014-03-09T19:30:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => Masterpiece: Frank Miller's The 
+            [TabletLink] => navto://050_MasterpieceFrankMillersDarkKnight
+            [TotalSold] => 151
+            [StartDate] => 2014-03-08T13:00:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [4] => Array
+        (
+            [Name] => Small Time (Closing Night Event)
+            [TabletLink] => navto://022_ClosingNight
+            [TotalSold] => 120
+            [StartDate] => 2014-03-16T18:00:00
+            [VenueName] => California Theatre
+        )
+
+)
+</pre>

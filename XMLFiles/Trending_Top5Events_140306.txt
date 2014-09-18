@@ -1,0 +1,49 @@
+<pre>Array
+(
+    [0] => Array
+        (
+            [Name] => The Grand Seduction (Opening Nig
+            [TabletLink] => navto://021_OpeningNight
+            [TotalSold] => 935
+            [StartDate] => 2014-03-04T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [1] => Array
+        (
+            [Name] => GRAND PIANO screening (starring 
+            [TabletLink] => navto://019_MediaLegacyKnowles
+            [TotalSold] => 436
+            [StartDate] => 2014-03-06T19:15:00
+            [VenueName] => San Jose Repertory Theatre
+        )
+
+    [2] => Array
+        (
+            [Name] => Sold
+            [TabletLink] => navto://050_Sold
+            [TotalSold] => 417
+            [StartDate] => 2014-03-07T19:00:00
+            [VenueName] => California Theatre
+        )
+
+    [3] => Array
+        (
+            [Name] => The Rugby Player
+            [TabletLink] => navto://050_RugbyPlayerThe
+            [TotalSold] => 356
+            [StartDate] => 2014-03-06T18:45:00
+            [VenueName] => Camera 12 - Screen 10
+        )
+
+    [4] => Array
+        (
+            [Name] => Just A Sigh
+            [TabletLink] => navto://050_JustASigh
+            [TotalSold] => 320
+            [StartDate] => 2014-03-06T19:00:00
+            [VenueName] => California Theatre
+        )
+
+)
+</pre>

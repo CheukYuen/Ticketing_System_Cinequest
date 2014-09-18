@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ArrayOfShows>
+    <Showing>
+        <Name>Writer's Celebration</Name>
+        <TabletLink>navto://024_WritersCelebration</TabletLink>
+        <StartDate>2014-03-09T09:30:00</StartDate>
+        <VenueName>San Jose Repertory Theatre</VenueName>
+    </Showing>
+    <Showing>
+        <Name>An Afternoon with Neil Gaiman: M</Name>
+        <TabletLink>navto://016_MaverickGaiman</TabletLink>
+        <StartDate>2014-03-09T13:30:00</StartDate>
+        <VenueName>California Theatre</VenueName>
+    </Showing>
+    <Showing>
+        <Name>The Farmer And The Chef</Name>
+        <TabletLink>navto://050_FarmerAndTheChefThe</TabletLink>
+        <StartDate>2014-03-09T19:30:00</StartDate>
+        <VenueName>San Jose Repertory Theatre</VenueName>
+    </Showing>
+</ArrayOfShows>

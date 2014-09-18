@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ArrayOfShows>
+    <Show>
+        <Name>East Side Sushi</Name>
+        <TabletLink>navto://050_EastSideSushi</TabletLink>
+        <TotalSold>1161</TotalSold>
+        <StartDate>2014-03-08T19:00:00</StartDate>
+        <VenueName>San Jose Repertory Theatre</VenueName>
+    </Show>
+    <Show>
+        <Name>Small Time (Closing Night Event)</Name>
+        <TabletLink>navto://022_ClosingNight</TabletLink>
+        <TotalSold>1005</TotalSold>
+        <StartDate>2014-03-16T18:00:00</StartDate>
+        <VenueName>California Theatre</VenueName>
+    </Show>
+    <Show>
+        <Name>Hunting Elephants</Name>
+        <TabletLink>navto://050_HuntingElephants</TabletLink>
+        <TotalSold>985</TotalSold>
+        <StartDate>2014-03-05T19:00:00</StartDate>
+        <VenueName>San Jose Repertory Theatre</VenueName>
+    </Show>
+    <Show>
+        <Name>The Rugby Player</Name>
+        <TabletLink>navto://050_RugbyPlayerThe</TabletLink>
+        <TotalSold>942</TotalSold>
+        <StartDate>2014-03-06T18:45:00</StartDate>
+        <VenueName>Camera 12 - Screen 10</VenueName>
+    </Show>
+    <Show>
+        <Name>Sold!!!</Name>
+        <TabletLink>navto://050_Sold</TabletLink>
+        <TotalSold>850</TotalSold>
+        <StartDate>2014-03-07T19:00:00</StartDate>
+        <VenueName>California Theatre</VenueName>
+    </Show>
+</ArrayOfShows>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<videos>
+   <item>
+      <id>1204</id>
+      <name>CQFF24 Trailer</name>
+	  <!--<link>http://www.youtube.com/watch?v=MVeeIsFtJC4&lc=2MxjG8gcWDUHpDcm-sJ7UsH-X91UGG4NoJ63hKQBiY8</link>-->
+	  <title>Cinequest 2014 Trailer</title>
+	  <image>http://cinequest.org/Trending/CQ24_282x154_CQ24Trailer.png</image>
+	  <nav>http://www.youtube.com/embed/Zi3Jq7v77dQ?autoplay=1</nav>
+   </item>
+   <item>
+      <id>1205</id>
+      <name>This Is Cinequest</name>
+	  <!--<link>http://www.youtube.com/watch?v=2qJT09LAh64</link>-->
+	  <title>This Is Cinequest</title>
+	  <image>http://cinequest.org/Trending/CQ24_282x154_ThisIsCQ.jpg</image>
+	  <nav>http://www.youtube.com/embed/mjc37J4_dIA?autoplay=1</nav>
+   </item>
+</videos>

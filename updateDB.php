@@ -1,0 +1,245 @@
+<?php 
+	
+	// --------------------------------------------------------------------- //
+	//  This script has following functionalities:
+	//  1. If the tables are empty, populate the database with data by 
+	//     inserting rows in Event and Showing tables.
+	//  2. If the tables are filled, update the data based on the information
+	//     in the XMLFiles. Here, XMLFiles refers to "http://payments.cinequest.org/
+	//     websales/feed.ashx?guid=70d8e056-fa45-4221-9cc7-b6dc88f62c98&
+	//     showslist=true&".
+	//  3. The ticketing information for each SHOWING is obtained by making 
+	//     an Agile API call using "https://prod5.agileticketing.net/API/
+	//     Admin.svc/XMLFiles/EventGetSalesSummary?
+	//     appkey=d09b3053-1817-4665-b41f-e1987e14433a&
+	//     userkey=0fd55f05-bf17-4b48-bbff-12cd842830de&
+	//     corporgid=2198&eventOrgID=2229&eventID=<ShowingID>"
+	//  4. Set the TrendingStatus of an EVENT based on if there is atleast 
+	//     one SHOWING under that EVENT which has a screening of future date.
+	//  5. Set the RushStatus of a SHOWING to be false or true based on 
+	//     if there are any tickets available or not, respectively.
+	// --------------------------------------------------------------------- //
+	
+	// Start connection with database
+	require("connectToDB.php");
+		
+	// Load XMLFiles, in PHP variables
+	$xml=simplexml_load_file("http://payments.cinequest.org/websales/feed.ashx?guid=70d8e056-fa45-4221-9cc7-b6dc88f62c98&showslist=true&");
+	
+	// Get the current date and time
+	date_default_timezone_set('America/Los_Angeles');
+	//$currDateTime = dateTimeToArray(date('Y-m-d H:i:s'), 0);	
+	$currDateTime = dateTimeToArray('2013-03-06 12:53:00', 0);	
+	
+	foreach ($xml->ArrayOfShows->Show as $events):
+		
+		// Save the SELECTED attributes for each SHOW, in PHP variables
+		$EventID = $events->ID;
+		$Name = addslashes($events->Name);
+		$Duration = $events->Duration;
+		$ThumbImage = $events->ThumbImage;
+		$EventImage = $events->EventImage;
+		$InfoLink = $events->InfoLink;
+		//$TabletLink = " ";
+		//$BitlyLink = " ";
+		$TotalSold = 0;
+		//$TrendingStatus = 0;
+		
+		// If SHOWINGS are there for the current EVENT,
+		// save the SELECTED attributes of SHOWINGS for each EVENT
+		$Showing = 0;
+		foreach ($events->CurrentShowings->Showing as $ShowingProps):
+			
+			// This variable determines if there exists any SHOWING for the current EVENT 
+			$Showing = 1;
+			$ShowingID = $ShowingProps->ID;
+			$ShowingStartDate = $ShowingProps->StartDate;
+			$ShowingEndDate = $ShowingProps->EndDate;
+			$ShowingDuration = $ShowingProps->Duration;
+			$ShowingSalesMessage = $ShowingProps->SalesMessage;
+			$ShowingLegacyPurchaseLink = $ShowingProps->LegacyPurchaseLink;
+			$ShowingVenueID = $ShowingProps->Venue->VenueID;
+			$ShowingVenueName = $ShowingProps->Venue->VenueName;
+			
+			// Call the Agile ticketing API for each ShowingID
+			$xml_ticketing = simplexml_load_file("https://prod5.agileticketing.net/API/Admin.svc/XML/EventGetSalesSummary?appkey=d09b3053-1817-4665-b41f-e1987e14433a&userkey=0fd55f05-bf17-4b48-bbff-12cd842830de&corporgid=2198&eventOrgID=2229&eventID=".$ShowingID);
+			
+			// Save the ticketing details for each SHOWING, in PHP variables
+			$Available = $xml_ticketing->Available;
+			$Disabled = $xml_ticketing->Disabled;
+			$Sold = $xml_ticketing->Sold;
+			$InProcess = $xml_ticketing->InProcess;
+			
+			// Set RushStatus of SHOWING
+			/* Removed 20140216 (MO)
+			if ($Available == 0) {
+				$RushStatus = 1;
+			} else {
+				$RushStatus = 0;
+			} */
+			
+			// Set TrendingStatus of EVENT
+			/*$showingDateTime = dateTimeToArray($ShowingStartDate, 1);
+			if (isLess($currDateTime, $showingDateTime) == -1) {
+				$TrendingStatus = 1;
+			} else {
+				$TrendingStatus = 0;
+			}*/
+			
+			//
+			$TotalSold = $TotalSold + $Sold;
+			
+			// Query to check if there exists any data in the Showing table to 
+			// determine if the data saved from XMLFiles needs to be inserted or updated
+			$query = "SELECT * FROM trending_Showing WHERE ShowingID=".$ShowingID;
+			$result = mysql_query($query,$con);	
+			$row = mysql_fetch_assoc($result);
+			$ShowingUpdate = 0;
+			
+			// update Showing table  20140216 (MO) removed RushStatus=".$RushStatus."
+			if ($row['ShowingID'] == $ShowingID) {
+				$ShowingUpdate = 1;
+				$query = "UPDATE trending_Showing set ShowingStartDate='".$ShowingStartDate."', 
+											ShowingEndDate='".$ShowingEndDate."', 
+											ShowingDuration='".$ShowingDuration."', 
+											ShowingSalesMessage='".$ShowingSalesMessage."', 
+											ShowingLegacyPurchaseLink='".$ShowingLegacyPurchaseLink."', 
+											ShowingVenueID=".$ShowingVenueID.",
+											ShowingVenueName='".$ShowingVenueName."',
+											Available=".$Available.",
+											Disabled=".$Disabled.",
+											Sold=".$Sold.",
+											InProcess=".$InProcess."
+						WHERE ShowingID=".$ShowingID;
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			} 
+			
+			// if ShowingUpdate is false, insert data in the Showing table instead of updating  20140216 removed RushStatus (MO)
+			if ($ShowingUpdate == 0) {
+				$query = "INSERT INTO `trending_Showing`(`ShowingID`, `EventID`, `ShowingStartDate`, `ShowingEndDate`, `ShowingDuration`, `ShowingSalesMessage`,
+												`ShowingLegacyPurchaseLink`, `ShowingVenueID`, `ShowingVenueName`, `Available`, `Disabled`, `Sold`, `InProcess`) 
+						VALUES (".$ShowingID.",".$EventID.",'".$ShowingStartDate."','".$ShowingEndDate."',".$ShowingDuration.",'".$ShowingSalesMessage."',
+								'".$ShowingLegacyPurchaseLink."',".$ShowingVenueID.",'".$ShowingVenueName."',".$Available.",".$Disabled.",".$Sold.",".$InProcess.")";
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			}
+		endforeach;	
+			
+		// Update or Insert data in Event table if there exists any SHOWING for the corresponding EVENT
+		if ($Showing == 1) {
+			
+			// Query to check if there exists any data in the Event table to 
+			// determine if the data saved from XMLFiles needs to be inserted or updated // TrendingStatus=".$TrendingStatus."
+			$query = "SELECT * FROM trending_Event WHERE EventID=".$EventID;
+			$result = mysql_query($query,$con);	
+			$row = mysql_fetch_assoc($result);
+			$EventUpdate = 0;
+			
+			// update Event table 
+			if ($row['EventID'] == $EventID) {
+				$EventUpdate = 1;
+				$query = "UPDATE trending_Event set Name='".$Name."', Duration='".$Duration."', ThumbImage='".$ThumbImage."', EventImage='".$EventImage."', InfoLink='".$InfoLink."', TotalSold='".$TotalSold."' WHERE EventID=".$EventID;
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			} 
+			
+			// if EventUpdate is false, insert data in the Event table instead of updating // `TrendingStatus` and //'".$TrendingStatus."'
+			if ($EventUpdate == 0) {			
+				$query = "INSERT INTO `trending_Event`(`EventID`, `Name`, `Duration`, `ThumbImage`, `EventImage`, `InfoLink`, `TotalSold`) 
+						VALUES (".$EventID.",'".$Name."',".$Duration.",'".$ThumbImage."','".$EventImage."','".$InfoLink."','".$TotalSold."')";
+
+				$result = mysql_query($query,$con);	
+				if(!$result)
+				{
+					die("Invalid query! <br> The query is: " . $query);
+				}
+			}
+
+		}
+		
+	endforeach;
+	
+	// --------------------------------------------------------------------- //
+	//  Function definition for separating date/time values
+	// --------------------------------------------------------------------- //
+	function dateTimeToArray($inputDateTime, $isEvent) {
+		$dateTime = array();
+		if ($isEvent == 1) {
+			$dateTime = explode("T", $inputDateTime);
+		} else {
+			$dateTime = explode(" ", $inputDateTime);
+		}
+		
+		$date = explode("-", $dateTime[0]);
+		$time = explode(":", $dateTime[1]);
+		$dateTime = array ($date[0], $date[1], $date[2], $time[0], $time[1], $time[2]);
+		
+		return $dateTime;
+	}
+	
+	// --------------------------------------------------------------------- //
+	//  Function definition for separating date/time values
+	//  It returns -1, 1 or 0 based on whether the currDateTime falls 
+	//  before, after or is same as the showingDateTime.
+	// --------------------------------------------------------------------- //
+	function isLess($currDateTime, $showingDateTime) {
+		// compare year
+		if ($currDateTime[0] < $showingDateTime[0]) {
+			return -1;
+		}
+		if ($currDateTime[0] > $showingDateTime[0]) {
+			return 1;
+		}
+		
+		// compare month
+		if ($currDateTime[1] < $showingDateTime[1]) {
+			return -1;
+		}
+		if ($currDateTime[1] > $showingDateTime[1]) {
+			return 1;
+		}
+		
+		// compare day
+		if ($currDateTime[2] < $showingDateTime[2]) {
+			return -1;
+		}
+		if ($currDateTime[2] > $showingDateTime[2]) {
+			return 1;
+		}
+		
+		// compare hour
+		if ($currDateTime[3] < $showingDateTime[3]) {
+			return -1;
+		}
+		if ($currDateTime[3] > $showingDateTime[3]) {
+			return 1;
+		}
+		
+		// compare minutes
+		if ($currDateTime[4] < $showingDateTime[4]) {
+			return -1;
+		}
+		if ($currDateTime[4] > $showingDateTime[4]) {
+			return 1;
+		}
+		
+		// compare seconds
+		if ($currDateTime[5] < $showingDateTime[5]) {
+			return -1;
+		}
+		if ($currDateTime[5] > $showingDateTime[5]) {
+			return 1;
+		}
+		return 0;
+	}
+?>
