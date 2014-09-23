@@ -30,7 +30,7 @@
 	// this variable keeps a count on the number of EVENTS stored in array
 	// we need to limit this count to 5
 	$count = 0;
-	while ($count < 5 && $row = mysql_fetch_assoc($result)) {	
+	while ($count < 5 && $row = mysql_fetch_assoc($result)) {
 		
 		$Name = $row['Name'];
 		

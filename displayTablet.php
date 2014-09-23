@@ -105,7 +105,8 @@
     <div class="headingWrapper">
         <div class="headingFiller1">&nbsp;</div>
         <div class="heading">Rush Films</div>
-        <div class="headingFiller2">&nbsp;</div>
+
+<!--        <div class="headingFiller2">&nbsp;</div>-->
     </div>
 
     <?php

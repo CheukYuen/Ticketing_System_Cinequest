@@ -23,37 +23,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RushStatus_Top5Showings.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XMLFiles/RushStatus_Top5Showings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="789" selection-end="789" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="405">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="displayTablet.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/displayTablet.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="0" selection-start="4589" selection-end="4589" vertical-scroll-proportion="16.25" vertical-offset="2445" max-vertical-offset="3750">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="display_RushStatus_Top5Showings.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/display_RushStatus_Top5Showings.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="38" selection-start="687" selection-end="687" vertical-scroll-proportion="-0.816609" vertical-offset="877" max-vertical-offset="1455">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Trending_Top5Events.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="11" selection-start="840" selection-end="840" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+            <state line="25" column="33" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="885">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateDB.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/updateDB.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="73" selection-start="321" selection-end="321" vertical-scroll-proportion="-3.6666667" vertical-offset="2" max-vertical-offset="3960">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_trending.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_trending.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="51" column="57" selection-start="1563" selection-end="1563" vertical-scroll-proportion="-8.125" vertical-offset="570" max-vertical-offset="3330">
+              <folding>
+                <element signature="e#6#85#0" expanded="true" />
+                <marker date="1411435952000" expanded="true" signature="774:1044" placeholder="SELECT * FRO..trending_Event..." />
+                <marker date="1411435952000" expanded="true" signature="1915:2584" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="display_RushStatus_Top5Showings.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/display_RushStatus_Top5Showings.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="62" column="38" selection-start="1676" selection-end="1676" vertical-scroll-proportion="-16.25" vertical-offset="540" max-vertical-offset="1455">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generateXML_RushStatus_Top5Showings.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generateXML_RushStatus_Top5Showings.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="37" selection-start="1195" selection-end="1195" vertical-scroll-proportion="-15.0" vertical-offset="15" max-vertical-offset="1380">
+              <folding>
+                <marker date="1410978707000" expanded="true" signature="873:1120" placeholder="SELECT * FRO..trending_Event..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="displayTablet.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/displayTablet.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="4" selection-start="1386" selection-end="1386" vertical-scroll-proportion="0.33235726" vertical-offset="358" max-vertical-offset="3765">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="standard_1.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_1.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="510" column="9" selection-start="14828" selection-end="14828" vertical-scroll-proportion="-10.166667" vertical-offset="7406" max-vertical-offset="16890">
               <folding />
             </state>
           </provider>
@@ -62,56 +95,10 @@
       <file leaf-file-name="generateXML_EventsWithShowings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generateXML_EventsWithShowings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="47.458332" vertical-offset="1139" max-vertical-offset="1740">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="generateLogFile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generateLogFile.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1890">
+            <state line="15" column="40" selection-start="675" selection-end="675" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1740">
               <folding>
-                <marker date="1391737351000" expanded="true" signature="589:821" placeholder="SELECT * FRO..trending_Event..." />
-                <marker date="1391737351000" expanded="true" signature="1616:1866" placeholder="SELECT * FRO..trending_Event..." />
+                <marker date="1410978707000" expanded="true" signature="607:635" placeholder="SELECT * FRO..trending_Event..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventsWithShowings_140210.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140210.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="40394" max-vertical-offset="64650">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventsWithShowings_140228.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140228.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65190">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventsWithShowings_140308.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140308.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65520">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventsWithShowings_140311.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140311.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="65520">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -128,8 +115,14 @@
       <list>
         <option value="$PROJECT_DIR$/test_connect.php" />
         <option value="$PROJECT_DIR$/connectToDB.php" />
-        <option value="$PROJECT_DIR$/updateDB.php" />
+        <option value="$PROJECT_DIR$/XMLFiles/EventsWithShowingSummary.xml" />
         <option value="$PROJECT_DIR$/XMLFiles/RushStatus_Top5Showings.xml" />
+        <option value="$PROJECT_DIR$/XMLFiles/EventsWithShowings.xml" />
+        <option value="$PROJECT_DIR$/updateDB.php" />
+        <option value="$PROJECT_DIR$/test.php" />
+        <option value="$PROJECT_DIR$/css/displayTabletStyle.css" />
+        <option value="$PROJECT_DIR$/generateXML_Trending_Top5Events.php" />
+        <option value="$PROJECT_DIR$/test_trending.php" />
         <option value="$PROJECT_DIR$/XMLFiles/Trending_Top5Events.xml" />
         <option value="$PROJECT_DIR$/displayTablet.php" />
       </list>
@@ -137,10 +130,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="MAMP PHP 5.5.10" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="118" />
-    <option name="y" value="31" />
-    <option name="width" value="1108" />
-    <option name="height" value="789" />
+    <option name="x" value="428" />
+    <option name="y" value="22" />
+    <option name="width" value="1012" />
+    <option name="height" value="874" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -182,7 +175,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="trending-cinequest" />
+              <option name="myItemId" value="TicketingSystemCQ" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -192,25 +185,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="TicketingSystemCQ" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="XMLFiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="trending-cinequest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TicketingSystemCQ" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Documentation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trending-cinequest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trending-cinequest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -220,7 +213,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CampusCafe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="options.lastSelected" value="web.server" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -229,8 +222,14 @@
     <property name="FullScreen" value="false" />
     <property name="LayoutCode.rearrangeEntriesXML" value="false" />
     <property name="LayoutCode.rearrangeEntriesPHP" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="recentsLimit" value="5" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHPUnit.TicketingSystemCQ">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
       <method />
@@ -241,10 +240,16 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="cf9d3af3-29bc-4c5d-86f1-89359be98c92" server_name="MAMP Apache">
       <method />
     </configuration>
-    <list size="0" />
+    <configuration default="false" name="TicketingSystemCQ" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner directory="$PROJECT_DIR$" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="PHPUnit.TicketingSystemCQ" />
+    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
@@ -255,17 +260,37 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="118" y="31" width="1108" height="789" extended-state="0" />
+    <frame x="428" y="22" width="1012" height="874" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32904148" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26641652" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24123712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -295,56 +320,14 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/XMLFiles/RushStatus_Top5Showings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="789" selection-end="789" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/displayTablet.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="0" selection-start="4589" selection-end="4589" vertical-scroll-proportion="0.0" vertical-offset="312" max-vertical-offset="3750">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="11" selection-start="840" selection-end="840" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="660">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140210.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="40394" max-vertical-offset="64650">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140228.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65190">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140308.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65520">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140311.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="65520">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="65520" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/updateDB.php">
@@ -412,16 +395,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-94.98856" vertical-offset="58133" max-vertical-offset="62295" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/display_Trending_Top5Events.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1455" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/connectToDB.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="17" selection-start="459" selection-end="459" vertical-scroll-proportion="-8.75" vertical-offset="0" max-vertical-offset="540" />
@@ -430,11 +403,6 @@
     <entry file="file://$PROJECT_DIR$/createTables.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="16" selection-start="800" selection-end="800" vertical-scroll-proportion="0.3846154" vertical-offset="75" max-vertical-offset="900" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/updateDB.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="48" selection-start="6241" selection-end="6241" vertical-scroll-proportion="-7.3333335" vertical-offset="1924" max-vertical-offset="3750" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events_140829.txt">
@@ -484,30 +452,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140228.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65190">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65190" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140308.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65520">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65520" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140311.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65520">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/RushStatus_Top5Showings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="789" selection-end="789" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="65520" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140223.txt">
@@ -517,9 +472,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings_140210.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="64650">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="64650" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trending.php">
@@ -527,40 +480,143 @@
         <state line="6" column="31" selection-start="50" selection-end="50" vertical-scroll-proportion="0.07785467" vertical-offset="0" max-vertical-offset="578" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events.xml">
+    <entry file="file://$PROJECT_DIR$/generateLogFile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="11" selection-start="840" selection-end="840" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1890" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events_140206.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="913" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events_140209.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="913" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events_140213.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generateXML_EventsWithShowingsSummary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="17" selection-start="3275" selection-end="3275" vertical-scroll-proportion="0.6581986" vertical-offset="720" max-vertical-offset="1965" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1270" column="0" selection-start="68127" selection-end="68127" vertical-scroll-proportion="23.35007" vertical-offset="2775" max-vertical-offset="19140">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/RushStatus_Top5Showings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="38" selection-end="38" vertical-scroll-proportion="0.04225352" vertical-offset="0" max-vertical-offset="710">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/EventsWithShowingSummary.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1616" column="22" selection-start="81497" selection-end="81497" vertical-scroll-proportion="9.226389" vertical-offset="17597" max-vertical-offset="24600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/display_Trending_Top5Events.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="6" selection-start="401" selection-end="401" vertical-scroll-proportion="-5.0" vertical-offset="0" max-vertical-offset="1455">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/phrase.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="20" selection-start="330" selection-end="330" vertical-scroll-proportion="0.19650654" vertical-offset="0" max-vertical-offset="6090">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/displayTabletStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="17" selection-start="22" selection-end="22" vertical-scroll-proportion="0.02112676" vertical-offset="0" max-vertical-offset="2265">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generateXML_Trending_Top5Events.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="4" selection-start="1032" selection-end="1032" vertical-scroll-proportion="-0.16925247" vertical-offset="465" max-vertical-offset="1620">
+          <folding>
+            <element signature="e#10#85#0" expanded="true" />
+            <marker date="1411422469000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..trending_Event..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/display_RushStatus_Top5Showings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="38" selection-start="1676" selection-end="1676" vertical-scroll-proportion="-16.25" vertical-offset="540" max-vertical-offset="1455">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generateXML_EventsWithShowings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="47.458332" vertical-offset="1139" max-vertical-offset="1740">
+        <state line="15" column="40" selection-start="675" selection-end="675" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1740">
+          <folding>
+            <marker date="1410978707000" expanded="true" signature="607:635" placeholder="SELECT * FRO..trending_Event..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generateXML_RushStatus_Top5Showings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="37" selection-start="1195" selection-end="1195" vertical-scroll-proportion="-15.0" vertical-offset="15" max-vertical-offset="1380">
+          <folding>
+            <marker date="1410978707000" expanded="true" signature="873:1120" placeholder="SELECT * FRO..trending_Event..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/updateDB.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="73" selection-start="321" selection-end="321" vertical-scroll-proportion="-3.6666667" vertical-offset="2" max-vertical-offset="3960">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generateLogFile.php">
+    <entry file="file://$PROJECT_DIR$/test_trending.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1890">
+        <state line="51" column="57" selection-start="1563" selection-end="1563" vertical-scroll-proportion="-8.125" vertical-offset="570" max-vertical-offset="3330">
           <folding>
-            <marker date="1391737351000" expanded="true" signature="589:821" placeholder="SELECT * FRO..trending_Event..." />
-            <marker date="1391737351000" expanded="true" signature="1616:1866" placeholder="SELECT * FRO..trending_Event..." />
+            <element signature="e#6#85#0" expanded="true" />
+            <marker date="1411435952000" expanded="true" signature="774:1044" placeholder="SELECT * FRO..trending_Event..." />
+            <marker date="1411435952000" expanded="true" signature="1915:2584" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XMLFiles/Trending_Top5Events.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="33" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="510" column="9" selection-start="14828" selection-end="14828" vertical-scroll-proportion="-10.166667" vertical-offset="7406" max-vertical-offset="16890">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/displayTablet.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="0" selection-start="4589" selection-end="4589" vertical-scroll-proportion="16.25" vertical-offset="2445" max-vertical-offset="3750">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/display_RushStatus_Top5Showings.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="38" selection-start="687" selection-end="687" vertical-scroll-proportion="-0.816609" vertical-offset="877" max-vertical-offset="1455">
+        <state line="39" column="4" selection-start="1386" selection-end="1386" vertical-scroll-proportion="0.33235726" vertical-offset="358" max-vertical-offset="3765">
           <folding />
         </state>
       </provider>
