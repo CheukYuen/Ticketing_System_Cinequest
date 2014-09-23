@@ -18,13 +18,13 @@
 
 	// Query the database to get the Top 5 RushStatus SHOWINGS
 	// and order them by ShowingStartDate
+    // remove AND trending_Event.trendingStatus = 1 By Leon
 	$query = "SELECT * FROM trending_Event, trending_Showing
 				WHERE trending_Event.EventID = trending_Showing.EventID
 				AND trending_Showing.rushStatus = 1
-				AND trending_Event.trendingStatus = 1
-				ORDER BY trending_Showing.ShowingStartDate
+				ORDER BY trending_Showing.ShowingStartDate DESC
 				LIMIT 5";
-	$result = mysql_query($query,$con);
+    $result = mysql_query($query,$con);
 
 	$phpResponseRushStatus = array();
 	while ($row = mysql_fetch_assoc($result)) {
@@ -40,6 +40,8 @@
 							"StartDate"=>$ShowingStartDate,
 							"VenueName"=>$ShowingVenueName);
 	}
+
+    $phpResponseRushStatus  = array_reverse($phpResponseRushStatus);
 
 	// Print the data along with the generation of XMLFiles file, if needed
 	echo "<pre>";

@@ -37,7 +37,7 @@
     </div>
 
     <?php
-    $nameLength = 12;
+    $nameLength = 10;
 
     // Load XMLFiles in PHP variables
     $xml_trending = simplexml_load_file("XMLFiles/Trending_Top5Events.xml");

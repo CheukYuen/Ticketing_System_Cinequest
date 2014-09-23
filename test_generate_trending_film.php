@@ -22,10 +22,11 @@ require("connectToDB.php");
 
 // Query the database to get EVENTS which have atleast one upcoming
 // SHOWING and order them by TotalSold tickets and ShowingStartDate
+// Change trending_Showing.RushStatus = 0 to trending_Showing.Available > 0 by leon 2014 Sep 23
 $query = "SELECT * FROM trending_Event, trending_Showing
 					WHERE trending_Event.EventID = trending_Showing.EventID
 					AND trending_Event.trendingStatus = 1
-					AND trending_Showing.RushStatus = 0
+					AND trending_Showing.Available > 0
 					ORDER BY trending_Event.TotalSold DESC, trending_Showing.ShowingStartDate";
 $result = mysql_query($query, $con);
 
@@ -48,8 +49,8 @@ $temp = "";
 // we need to limit this count to 5
 $count = 0;
 
-$currDateTime = dateTimeToArray('2014-03-15 12:53:00', 0);
-while ($count < 7 && $row = mysql_fetch_assoc($result)) {
+$currDateTime = dateTimeToArray('2014-03-16 12:53:00', 0);
+while ($count < 5 && $row = mysql_fetch_assoc($result)) {
 
     $Name = $row['Name'];
 

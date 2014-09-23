@@ -29,7 +29,7 @@ $xml = simplexml_load_file("http://payments.cinequest.org/websales/feed.ashx?gui
 // Get the current date and time
 date_default_timezone_set('America/Los_Angeles');
 //$currDateTime = dateTimeToArray(date('Y-m-d H:i:s'), 0);
-$currDateTime = dateTimeToArray('2014-03-15 12:53:00', 0);
+$currDateTime = dateTimeToArray('2014-03-16 12:53:00', 0);
 
 foreach ($xml->ArrayOfShows->Show as $events):
 
@@ -72,14 +72,17 @@ foreach ($xml->ArrayOfShows->Show as $events):
 
         // Set RushStatus of SHOWING
         //Removed 20140216 (MO)
-        if ($Available == 0) {
+
+        $showingDateTime = dateTimeToArray($ShowingStartDate, 1);
+
+        if ($Available == 0 || isLess($currDateTime, $showingDateTime) != -1) {
             $RushStatus = 1;
         } else {
             $RushStatus = 0;
         }
 
         // Set TrendingStatus of EVENT
-        $showingDateTime = dateTimeToArray($ShowingStartDate, 1);
+
 
         if (isLess($currDateTime, $showingDateTime) == -1) {
             $TrendingStatus = 1;

@@ -10,7 +10,7 @@
 	
 	// Create Event table
 	$query = "create table if not exists trending_Event (EventID int, 
-												Name varchar(32), 
+												Name varchar(128),
 												Duration int,
 												ThumbImage varchar(128),
 												EventImage varchar(128), 
