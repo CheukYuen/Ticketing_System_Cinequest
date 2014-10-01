@@ -9,6 +9,7 @@
 	require("connectToDB.php");
 	
 	// Create Event table
+    // change Name varchar(32) to Name varchar(128) by Leon 2014/09/23
 	$query = "create table if not exists trending_Event (EventID int, 
 												Name varchar(128),
 												Duration int,

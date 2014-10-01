@@ -37,6 +37,7 @@
     </div>
 
     <?php
+    // change $nameLength 12 to 10; by Leon 2014/09/23
     $nameLength = 10;
 
     // Load XMLFiles in PHP variables
@@ -106,7 +107,7 @@
         <div class="headingFiller1">&nbsp;</div>
         <div class="heading">Rush Films</div>
 
-<!--        <div class="headingFiller2">&nbsp;</div>-->
+
     </div>
 
     <?php

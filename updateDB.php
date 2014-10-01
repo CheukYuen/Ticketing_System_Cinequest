@@ -29,7 +29,7 @@ $xml = simplexml_load_file("http://payments.cinequest.org/websales/feed.ashx?gui
 // Get the current date and time
 date_default_timezone_set('America/Los_Angeles');
 //$currDateTime = dateTimeToArray(date('Y-m-d H:i:s'), 0);
-$currDateTime = dateTimeToArray('2014-03-16 12:53:00', 0);
+$currDateTime = dateTimeToArray('2014-03-16 18:00:00', 0);
 
 foreach ($xml->ArrayOfShows->Show as $events):
 
@@ -90,15 +90,6 @@ foreach ($xml->ArrayOfShows->Show as $events):
             $TrendingStatus = 0;
         }
 
-        print_r($currDateTime);
-        print_r($showingDateTime);
-        echo "You can make it.<br>";
-        print_r("What's the status:");
-        print_r("$TrendingStatus");
-
-        echo "Yes~<br>";
-
-
         //
         $TotalSold = $TotalSold + $Sold;
 
@@ -110,7 +101,7 @@ foreach ($xml->ArrayOfShows->Show as $events):
         $ShowingUpdate = 0;
 
         // update Showing table  20140216 (MO) removed RushStatus=".$RushStatus."
-        // add RushStatus=".$RushStatus." by Leon 20140919
+        // add RushStatus=".$RushStatus." by Leon 2014/09/23
         if ($row['ShowingID'] == $ShowingID) {
             $ShowingUpdate = 1;
             $query = "UPDATE trending_Showing set ShowingStartDate='" . $ShowingStartDate . "',
@@ -133,7 +124,7 @@ foreach ($xml->ArrayOfShows->Show as $events):
         }
 
         // if ShowingUpdate is false, insert data in the Showing table instead of updating  20140216 removed RushStatus (MO)
-        // add RushStatus=".$RushStatus." by Leon 20140919
+        // add RushStatus=".$RushStatus." by Leon 2014/09/23
         if ($ShowingUpdate == 0) {
             $query = "INSERT INTO `trending_Showing`(`ShowingID`, `EventID`, `ShowingStartDate`, `ShowingEndDate`, `ShowingDuration`, `ShowingSalesMessage`,
 												`ShowingLegacyPurchaseLink`, `ShowingVenueID`, `ShowingVenueName`, `Available`, `Disabled`, `Sold`, `InProcess`,`RushStatus`)
@@ -168,7 +159,7 @@ foreach ($xml->ArrayOfShows->Show as $events):
         }
 
         // if EventUpdate is false, insert data in the Event table instead of updating // `TrendingStatus` and //'".$TrendingStatus."'
-        // add `TrendingStatus` and //'".$TrendingStatus."'
+        // add `TrendingStatus` and //'".$TrendingStatus."'  by Leon 2014/09/23
         if ($EventUpdate == 0) {
             $query = "INSERT INTO `trending_Event`(`EventID`, `Name`, `Duration`, `ThumbImage`, `EventImage`, `InfoLink`, `TotalSold`, `TrendingStatus`)
 						VALUES (" . $EventID . ",'" . $Name . "'," . $Duration . ",'" . $ThumbImage . "','" . $EventImage . "','" . $InfoLink . "','" . $TotalSold . "', '" . $TrendingStatus . "')";
